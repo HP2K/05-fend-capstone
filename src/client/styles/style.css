@@ -1,0 +1,145 @@
+body{
+    background: #fff;
+}
+
+#app{
+    display: grid;
+    grid-auto-rows: minmax(100px, auto);
+    /* grid-template-columns:  */
+    height:50vh;
+    background: #fff;
+    color: #000;
+    justify-content: center;
+    grid-gap: 1em;
+    font-size: 20px;
+    font-family: 'Arial, Helvetica, sans-serif';
+}
+
+.holder{
+    font-size: 32px;
+    font-family: 'Times New Roman', Times, serif;
+    align-content: center;
+}
+
+.entry{
+    background:#d3d3d3;
+    padding-left: 24px;
+    padding-top: 24px;
+    padding-bottom: 100px;
+    height: auto;
+}
+
+#entryHolder{
+    padding-top: 24px;
+}
+
+#date{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #00f;
+}
+
+#temp{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #00f;
+}
+
+#content{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #00f;
+}
+
+.headline {
+    font-size: 32px;
+    font-family: 'Times New Roman', Times, serif;
+    align-content: center;
+}
+.myInput {
+    height: 80px;
+    margin-bottom: 120px;
+    padding-left: 24px;
+    padding-top: 24px;
+}
+
+.title{
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: italic;
+}
+
+/*  Basic Styling To Override Default For Basic HTML Elements */
+label{
+    display:block;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input{
+    display:grid;
+    height: 60px;
+    width: 320px;
+    background:#d3d3d3;
+    color: #000;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    padding-left: 24px;
+}
+
+button{
+    width: 130px;
+    height: 48px;
+    background-color: #d3d3d3;
+    color: #000;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 24px;
+    margin-top: 30px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00f;
+    color: white;
+}
+
+h1{
+    font-size: 24px;
+}
+
+textarea{
+    background:#d3d3d3;
+    color: #000;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 100px;
+}
+
+/* Reset style for HTML element on active to have no border*/
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+/* Style for Placeholder Text*/
+::placeholder { /* Firefox, Chrome, Opera */ 
+    color: #000; 
+    font-family: Arial, Helvetica, sans-serif;
+} 
+  
+:-ms-input-placeholder { /* Internet Explorer 10-11 */ 
+    color: #000; 
+    font-family: Arial, Helvetica, sans-serif;
+} 
+  
+::-ms-input-placeholder { /* Microsoft Edge */ 
+    padding-left: 8px;
+    color: #000; 
+    font-family: Arial, Helvetica, sans-serif;
+} 
