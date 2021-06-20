@@ -12,8 +12,8 @@ document.getElementById('generate').addEventListener('click', performAction);
 
 // Function event listner 
 async function performAction(e){  
-  let zip = document.getElementById('zip').value;
-  let feelings = document.getElementById('feelings').value;
+  let zip = document.getElementById('startDate').value;
+  let feelings = document.getElementById('endDate').value;
   getWeather (baseURL, zip, apiKey)
   .then (function (data) {
     let temperature = data.main.temp;
