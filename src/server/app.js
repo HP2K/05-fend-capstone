@@ -19,12 +19,9 @@ const cors = require('cors');
 app.use(cors());
 
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('dist'));
 
-// Setup Server
-const port = 3000;
-// Spin up the server
-const server = app.listen(port, () => console.log(`Running on localhost: ${port}`));
+
 
 /// GET route 
 app.get('/getWeather', (req, res) => {
