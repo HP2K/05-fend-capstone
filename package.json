@@ -5,11 +5,13 @@
   "main": "webpack.dev.js",
   "dependencies": {
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "config": "^3.3.6",
     "css-loader": "^5.2.6",
     "express": "^4.17.1",
     "html-webpack-plugin": "^5.3.1",
     "mini-css-extract-plugin": "^1.6.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^6.0.1",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^2.0.0",
@@ -18,13 +20,12 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   },
-  "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "@babel/preset-env": "^7.14.7",
-    "clean-webpack-plugin": "^4.0.0-alpha.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-prod": "webpack --config webpack.prod.js",
+    "build-dev": "webpack-dev-server  --config webpack.dev.js --open",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
