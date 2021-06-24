@@ -3,32 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>CAPSTONE</title>
-<link rel="/stylesheet" type="text/css" href="../../../scr/client/styles/style.css">
+<link rel="/stylesheet" type="text/css" href="src/client/styles/style.css">
 </head>
  <body>
 <div id = "app">
     <h1>Travel App</h1>
     <div class ="input">
+        <label for="Destination">Destination</label>
+        <input type="text" id="Destination" placeholder="Enter Destination">
+    </div>
+    <div class ="input">
         <label for="startDate">Enter start date</label>
-        <input type="text" id="startDate" placeholder="Stat date">
+        <input type="text" id="startDate" placeholder="enter stat date">
     </div>
     <div class ="input">
         <label for="enddate">Enter end date</label>
-        <input type="text" id="endDate" placeholder="End date">
+        <input type="text" id="endDate" placeholder="enter end date">
     </div>
     
     <button 
-        id="submit" type = "submit"> Submit 
+        id="submit" type = "submit"> GO 
     </button>
         
-    <div class ="holder entry">
-        <div class = "title">Travel destination info</div>
-        <div id = "entryHolder">
-            <div id = "date"></div> 
-            <div id = "temp"></div>
-            <div id = "content"></div>
-        </div>
-    </div>
+
+    <section id="show"> </section>
+    <button id="delete">Remove All Trips</button>
   </div>
 <script src="app.js" type="text/javascript"></script>
 
