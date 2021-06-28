@@ -36,15 +36,17 @@ app.listen(port, function () {
 })
 
 //Fetch coordinates from the geonames API
-const geoUrl = `http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${GeoAPI}`;
-  try{
-      return await axios.get(url)
-              .then(res=>{
-                  return {
-                      lat:res.data.geonames[0].lat,
-                      lng:res.data.geonames[0].lng
-                  }
-              });
-  } catch(e){
-      console.log(e);
-  }
+const getDataFromGeoNames= async (username,city)=>{
+    const url=`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${username}`;
+    try{
+        return await axios.get(url)
+                .then(res=>{
+                    return {
+                        lat:res.data.geonames[0].lat,
+                        lng:res.data.geonames[0].lng
+                    }
+                });
+    } catch(e){
+        console.log(e);
+    }
+}
