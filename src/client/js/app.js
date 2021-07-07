@@ -1,46 +1,25 @@
-// Global Variables 
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
-// API key
-const apiKey = '&appid=5fc069c6cbb6add77842ae6227652287&units=imperial';
- 
-// Create a new date instance dynamically with JS
-let day = new Date();
-let newDate = (day.getMonth() + 1) + '/'+ day.getDate()+'/'+ day.getFullYear();
 
 // Event listener on generate button
-document.getElementById('generate').addEventListener('click', performAction);
+document.getElementById('submit').addEventListener('click', performAction);
 
 // Function event listner 
-async function performAction(e){  
-  let zip = document.getElementById('startDate').value;
-  let feelings = document.getElementById('endDate').value;
-  getWeather (baseURL, zip, apiKey)
-  .then (function (data) {
-    let temperature = data.main.temp;
-    let feel = feelings;
-  
-  // add data + update UI
-  postData('/addWeather', { date:newDate, temp:temperature, feel:feel} );
-  updateUI()
-});  
+async function performAction(e) {
+  let destination = document.getElementById('destination').value;
+  let startDate = document.getElementById('startDate').value;
+
+  // TODO: dynamic url
+  postData('http://localhost:8081/destination', {
+    destination,
+    startDate
+  })
+    .then(function (data) {
+      updateUI(data)
+    });  
 }
 
-// GET API data
-const getWeather = async (baseURL, zip, apiKey) => {
-    
-    const response = await fetch (baseURL+zip+apiKey)
-    try{
-       const data = await response.json();
-       return data;
-    }catch(error){
-       console.log("error", error);
-    }
-  }
-
-  // POST API data
- const postData = async ( url = '', data = {})=>{
-
-    const response = await fetch(url, {
+// POST API data
+const postData = async (url = '', data = {}) => {
+  const response = await fetch(url, {
     method: 'POST', 
     credentials: 'same-origin', 
     headers: {
@@ -48,24 +27,20 @@ const getWeather = async (baseURL, zip, apiKey) => {
     },
     body: JSON.stringify(data), // body data type must match "Content-Type" header        
   });
-    try {
+
+  try {
     const newData = await response.json();
-    return newData
-    }catch(error) {
+    return newData;
+  } catch (error) {
     console.log("error", error);
   }
 }
 
 // Update UI
-const updateUI = async () => {
-  const request = await fetch('/getWeather');
-  try{
-    const allData = await request.json();
-    document.getElementById('date').innerHTML = allData.date;
-    document.getElementById('temp').innerHTML = allData.temp;
-    document.getElementById('content').innerHTML = allData.feel;
-
-  }catch(error){
-    console.log("error", error);
-  }
+const updateUI = async (result) => {
+  const picture = result.picture;
+  const forecastTable = result.forecast.map(forecast => {
+    return `<div><span>${forecast.date}</span><img src="${forecast.icon}"></div>`
+  })
+  document.getElementById('show').innerHTML = `<img src="${picture}">` + forecastTable;
 };

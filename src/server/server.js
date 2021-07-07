@@ -1,6 +1,6 @@
 const dotenv = require('dotenv');
 dotenv.config();
-
+const axios = require('axios')
 //API Keys 
 const GeoAPI = process.env.GEONAMES_API_KEY;
 console.log("GeoAPI key =", GeoAPI)
@@ -12,14 +12,13 @@ const PixabayAPI = process.env.PIXABAY_API_KEY;
 console.log("GeoAPI key =", PixabayAPI)
 
 const path = require('path')
-const express = require('express')
 const fetch = require('node-fetch')
 const bodyParser = require('body-parser');
 const cors = require('cors')
 // Require Express to run server and routes
-const express = require ('express');
+const express = require('express');
 // Start up an instance of app
-const app = express ();
+const app = express();
 
 // Middleware - Configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,24 +28,73 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('dist'));
 
+
 // Setup Server
-const port = 8080;
+const port = process.env.PORT || 8081;
 app.listen(port, function () {
-    console.log('running on port 8080!')
+    console.log(`running on port ${port}!`)
 })
 
-//Fetch coordinates from the geonames API
-const getDataFromGeoNames= async (username,city)=>{
-    const url=`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${username}`;
-    try{
+app.post('/destination', getDestinationInfo)
+
+async function getDestinationInfo(req, res) {
+    const { destination, startDate } = req.body;
+
+    const { lat, lng } = await getLatLong(destination);
+    
+    const forecast = await getWeatherForecast(lat, lng, startDate);
+
+    const picture = await getPicture(destination)
+
+    res.send({
+        forecast,
+        picture,
+    })
+}
+
+async function getLatLong(destination) {
+    const url = `http://api.geonames.org/searchJSON?q=${destination}&maxRows=1&username=${GeoAPI}`;
+
+    try {
         return await axios.get(url)
-                .then(res=>{
-                    return {
-                        lat:res.data.geonames[0].lat,
-                        lng:res.data.geonames[0].lng
-                    }
-                });
-    } catch(e){
+            .then(result => {
+                return {
+                    lat: result.data.geonames[0].lat,
+                    lng: result.data.geonames[0].lng
+                };
+            });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+async function getWeatherForecast(lat, lng, startDate) {
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lng}&key=${WeatherAPI}`;
+    try {
+        return await axios.get(url)
+            .then(result => {
+                const forecasts = result.data.data;
+
+                return forecasts
+                    .filter(forecast => forecast.datetime >= startDate)
+                    .map(forecast => {
+                        return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime }
+                    })
+            });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+async function getPicture(destination) {
+    const url = `https://pixabay.com/api/?key=${PixabayAPI}&q=${destination}&image_type=photo`;
+    try {
+        return await axios.get(url)
+            .then(result => {
+                const imagesCount = result.data.hits.length;
+                return result.data.hits[Math.floor(Math.random() * imagesCount)].webformatURL;
+            });
+    } catch (e) {
         console.log(e);
     }
 }
