@@ -17,6 +17,7 @@
     "node-sass": "^6.0.1",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "sass-loader": "^12.1.0",
+    "service-worker-node": "^1.0.5",
     "serviceworker": "^0.1.7",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.1.3",
@@ -26,7 +27,9 @@
     "workbox-webpack-plugin": "^6.1.5"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "jest": "^27.0.6",
+    "supertest": "^6.1.3"
   },
   "scripts": {
     "test": "jest",
