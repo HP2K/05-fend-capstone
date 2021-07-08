@@ -74,11 +74,12 @@ async function getWeatherForecast(lat, lng, startDate) {
         return await axios.get(url)
             .then(result => {
                 const forecasts = result.data.data;
+                console.log(forecasts)
 
                 return forecasts
-                    .filter(forecast => forecast.datetime >= startDate)
-                    .map(forecast => {
-                        return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime }
+                    .filter(forecast => forecast.datetime, forecast.max_temp, forecast.min_temp >= startDate)
+                    .map(forecast, max_temp, min_temp => {
+                        return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime, max_temp: forecast.max_temp, min_temp: forecast.min_temp }
                     })
             });
     } catch (e) {
