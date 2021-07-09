@@ -10,5 +10,4 @@
 
 
 #### Run the project
-Run <code>npm run build-prod<code> <br>
-Run <code>npm run start<code> to start the app at port 8081
+Run <code>npm run build-prod<code> <br>Run <code>npm run start<code> to start the app at port 8081
