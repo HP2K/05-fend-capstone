@@ -77,16 +77,16 @@ async function getWeatherForecast(lat, lng, startDate) {
                 console.log(forecasts)
 
                 return forecasts
-                    .filter(forecast => forecast.datetime, forecast.max_temp, forecast.min_temp >= startDate)
-                    .map(forecast, max_temp, min_temp => {
-                        return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime, max_temp: forecast.max_temp, min_temp: forecast.min_temp }
+                    .filter(forecast => forecast.datetime >= startDate)
+                    .map(forecast => {
+                        return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime},
+                         { min_temp: `https://api.weatherbit.io/v2.0/forecast/daily?/${forecast.min_temp}`, min_temp: forecast.min_temp}
                     })
             });
     } catch (e) {
         console.log(e);
     }
 }
-
 async function getPicture(destination) {
     const url = `https://pixabay.com/api/?key=${PixabayAPI}&q=${destination}&image_type=photo`;
     try {
