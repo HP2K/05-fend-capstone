@@ -40,7 +40,7 @@ const postData = async (url = '', data = {}) => {
 const updateUI = async (result) => {
   const picture = result.picture;
   const forecastTable = result.forecast.map(forecast => {
-    return `<div><span>${forecast.date}</span><img src="${forecast.icon}"></div>`
+    return `<div><span>${forecast.date}</span><img src="${forecast.icon}"><span>${forecast.min_temp} - ${forecast.max_temp}</span></div>` 
   })
   document.getElementById('show').innerHTML = `<img src="${picture}">` + forecastTable;
 };
