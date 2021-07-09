@@ -80,7 +80,8 @@ async function getWeatherForecast(lat, lng, startDate) {
                     .filter(forecast => forecast.datetime >= startDate)
                     .map(forecast => {
                         return { icon: `https://www.weatherbit.io/static/img/icons/${forecast.weather.icon}.png`, date: forecast.datetime},
-                         { min_temp: `https://api.weatherbit.io/v2.0/forecast/daily?/${forecast.min_temp}`, min_temp: forecast.min_temp}
+                         { min_temp: `https://api.weatherbit.io/v2.0/forecast/daily?/${forecast.min_temp}`, min_temp: forecast.min_temp},
+                         { max_temp: `https://api.weatherbit.io/v2.0/forecast/daily?/${forecast.max_temp}`, max_temp: forecast.max_temp}
                     })
             });
     } catch (e) {
